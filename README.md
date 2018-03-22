@@ -9,12 +9,6 @@ Grocery list, item service
 
 `docker push zmad5306/gl-item:latest`
 
-## Deploy with Kubernetes
-
-`kubectl apply -f k8s/deployment.yml`
-
-`kubectl apply -f k8s/service.yml`
-
 # API
 
 | URL                                    | Method | Description                                           |
