@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.item.dto.ItemDto;
+import com.example.item.dto.ItemInputDto;
 import com.example.item.service.ItemService;
 
 @RestController
@@ -30,7 +31,7 @@ public class ItemController {
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			value="/{listId}"
 		)
-	public List<ItemDto> getItems(@RequestHeader("sso_user") String username, @PathVariable Long listId) {
+	public List<ItemDto> getItems(@RequestHeader("sso_user") String username, @PathVariable String listId) {
 		List<ItemDto> items = service.getAllItems(username, listId);
 		for (ItemDto item: items) {
 			Link selfLink = linkTo(ItemController.class).slash(item.getItemId()).withSelfRel();
@@ -50,7 +51,7 @@ public class ItemController {
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			value="/{listId}/{departmentId}"
 		)
-	public List<ItemDto> getItems(@RequestHeader("sso_user") String username, @PathVariable Long listId, @PathVariable Long departmentId) {
+	public List<ItemDto> getItems(@RequestHeader("sso_user") String username, @PathVariable String listId, @PathVariable String departmentId) {
 		List<ItemDto> items = service.getAllItems(username, listId, departmentId);
 		for (ItemDto item: items) {
 			Link selfLink = linkTo(ItemController.class).slash(item.getItemId()).withSelfRel();
@@ -70,8 +71,8 @@ public class ItemController {
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			value="/{listId}/{departmentId}"
 		)
-	public ItemDto saveItem(@RequestHeader("sso_user") String username, @PathVariable Long listId, @PathVariable Long departmentId, @RequestBody ItemDto item) {
-		ItemDto it = service.newItem(username, listId, departmentId, item);
+	public ItemDto saveItem(@RequestHeader("sso_user") String username, @PathVariable String listId, @PathVariable String departmentId, @RequestBody ItemInputDto item) {
+		ItemDto it = service.insertItem(username, listId, departmentId, item);
 		
 		Link selfLink = linkTo(ItemController.class).slash(it.getItemId()).withSelfRel();
 		it.add(selfLink);
@@ -90,8 +91,8 @@ public class ItemController {
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			value="/{itemId}"
 		)
-	public ResponseEntity<?> updateItem(@RequestHeader("sso_user") String username, @PathVariable Long itemId, @RequestBody ItemDto item) {
-		service.changeItem(username, itemId, item);
+	public ResponseEntity<?> updateItem(@RequestHeader("sso_user") String username, @PathVariable String itemId, @RequestBody ItemInputDto item) {
+		service.saveItem(username, itemId, item);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
@@ -100,7 +101,7 @@ public class ItemController {
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			value="/{itemId}"
 		)
-	public ResponseEntity<?> deleteItem(@RequestHeader("sso_user") String username, @PathVariable Long itemId) {
+	public ResponseEntity<?> deleteItem(@RequestHeader("sso_user") String username, @PathVariable String itemId) {
 		service.deleteItem(username, itemId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

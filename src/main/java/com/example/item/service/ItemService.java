@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.item.dto.ItemDto;
+import com.example.item.dto.ItemInputDto;
 import com.example.item.model.Item;
 import com.example.item.repository.ItemRepository;
 
@@ -16,24 +17,27 @@ public class ItemService {
 	@Autowired
 	private ItemRepository repo;
 	
-	public List<ItemDto> getAllItems(String username, Long listId) {
-		return repo.fetchByListId(listId, username).stream().map(i -> new ItemDto(i)).collect(Collectors.toList());
+	public List<ItemDto> getAllItems(String username, String listId) {
+		return repo.findByListIdAndUsername(listId, username).stream().map(i -> new ItemDto(i)).collect(Collectors.toList());
 	}
 	
-	public List<ItemDto> getAllItems(String username, Long listId, Long departmentId) {
-		return repo.fetchByListIdAndDepartmentId(listId, departmentId, username).stream().map(i -> new ItemDto(i)).collect(Collectors.toList());
+	public List<ItemDto> getAllItems(String username, String listId, String departmentId) {
+		return repo.findByListIdAndUsernameAndDepartmentId(listId, username, departmentId).stream().map(i -> new ItemDto(i)).collect(Collectors.toList());
 	}
 	
-	public ItemDto newItem(String username, Long listId, Long departmentId, ItemDto item) {
-		return new ItemDto(repo.save(listId, departmentId, new Item(null, listId, departmentId, username, item.getActive(), item.getQuantity(), item.getName()), username));		
+	public ItemDto insertItem(String username, String listId, String departmentId, ItemInputDto item) {
+		return new ItemDto(repo.insert(new Item(item, username)));		
 	}
 	
-	public void changeItem(String username, Long itemId, ItemDto item) {		
-		repo.update(username, itemId, new Item(itemId, item.getListId(), item.getDepartmentId(), username, item.getActive(), item.getQuantity(), item.getName()));
+	public void saveItem(String username, String itemId, ItemInputDto item) {
+		Item i = repo.findByItemIdAndUsername(itemId, username);
+		i.apply(item);
+		repo.save(i);
 	}
 	
-	public void deleteItem(String username, Long itemId) {
-		repo.delete(username, itemId);
+	public void deleteItem(String username, String itemId) {
+		Item i = repo.findByItemIdAndUsername(itemId, username);
+		repo.delete(i);
 	}
 
 }
