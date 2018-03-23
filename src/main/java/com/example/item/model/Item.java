@@ -30,22 +30,20 @@ public class Item {
 		this.name = name;
 	}
 	
-	public Item(ItemInputDto list, String username) {
+	public Item(ItemInputDto list, String username, String listId, String departmentId) {
 		super();
-		this.departmentId = list.getDepartmentId();
+		this.departmentId = departmentId;
 		this.username = username;
 		this.active = list.getActive();
 		this.quantity = list.getQuantity();
 		this.name = list.getName();
-		this.listId = list.getListId();
+		this.listId = listId;
 	}
 	
 	public void apply(ItemInputDto list) {
-		this.departmentId = list.getDepartmentId();
 		this.active = list.getActive();
 		this.quantity = list.getQuantity();
 		this.name = list.getName();
-		this.listId = list.getListId();
 	}
 
 	public String getItemId() {

@@ -2,23 +2,10 @@ package com.example.item.dto;
 
 public class ItemInputDto {
 	
-	private String listId;
-	private String departmentId;
 	private Boolean active = true;
 	private Integer quantity = 1;
 	private String name;
-	public String getListId() {
-		return listId;
-	}
-	public void setListId(String listId) {
-		this.listId = listId;
-	}
-	public String getDepartmentId() {
-		return departmentId;
-	}
-	public void setDepartmentId(String departmentId) {
-		this.departmentId = departmentId;
-	}
+	
 	public Boolean getActive() {
 		return active;
 	}

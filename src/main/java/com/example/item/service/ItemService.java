@@ -26,7 +26,7 @@ public class ItemService {
 	}
 	
 	public ItemDto insertItem(String username, String listId, String departmentId, ItemInputDto item) {
-		return new ItemDto(repo.insert(new Item(item, username)));		
+		return new ItemDto(repo.insert(new Item(item, username, listId, departmentId)));		
 	}
 	
 	public void saveItem(String username, String itemId, ItemInputDto item) {
