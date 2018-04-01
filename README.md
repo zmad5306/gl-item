@@ -3,8 +3,6 @@ Grocery list, item service
 
 ## Build with Docker
 
-`gradlew build`
-
 `docker build . --build-arg version=0.0.1-SNAPSHOT -t zmad5306/gl-item:latest`
 
 `docker push zmad5306/gl-item:latest`
