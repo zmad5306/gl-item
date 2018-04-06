@@ -6,9 +6,9 @@ import com.example.item.model.Item;
 
 public class ItemDto extends ResourceSupport {
 	
-	private Long itemId;
-	private Long listId;
-	private Long departmentId;
+	private String itemId;
+	private String listId;
+	private String departmentId;
 	private String username;
 	private Boolean active = true;
 	private Integer quantity = 1;
@@ -29,27 +29,27 @@ public class ItemDto extends ResourceSupport {
 		this.username = item.getUsername();
 	}
 
-	public Long getItemId() {
+	public String getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(Long itemId) {
+	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
 
-	public Long getListId() {
+	public String getListId() {
 		return listId;
 	}
 
-	public void setListId(Long listId) {
+	public void setListId(String listId) {
 		this.listId = listId;
 	}
 
-	public Long getDepartmentId() {
+	public String getDepartmentId() {
 		return departmentId;
 	}
 
-	public void setDepartmentId(Long departmentId) {
+	public void setDepartmentId(String departmentId) {
 		this.departmentId = departmentId;
 	}
 

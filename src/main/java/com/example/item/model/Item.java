@@ -1,10 +1,15 @@
 package com.example.item.model;
 
+import org.springframework.data.annotation.Id;
+
+import com.example.item.dto.ItemInputDto;
+
 public class Item {
 	
-	private Long itemId;
-	private Long listId;
-	private Long departmentId;
+	@Id
+	private String itemId;
+	private String listId;
+	private String departmentId;
 	private String username;
 	private Boolean active = true;
 	private Integer quantity = 1;
@@ -14,10 +19,9 @@ public class Item {
 		super();
 	}
 
-	public Item(Long itemId, Long listId, Long departmentId, String username, Boolean active, Integer quantity,
+	public Item(String listId, String departmentId, String username, Boolean active, Integer quantity,
 			String name) {
 		super();
-		this.itemId = itemId;
 		this.listId = listId;
 		this.departmentId = departmentId;
 		this.username = username;
@@ -25,28 +29,44 @@ public class Item {
 		this.quantity = quantity;
 		this.name = name;
 	}
+	
+	public Item(ItemInputDto list, String username, String listId, String departmentId) {
+		super();
+		this.departmentId = departmentId;
+		this.username = username;
+		this.active = list.getActive();
+		this.quantity = list.getQuantity();
+		this.name = list.getName();
+		this.listId = listId;
+	}
+	
+	public void apply(ItemInputDto list) {
+		this.active = list.getActive();
+		this.quantity = list.getQuantity();
+		this.name = list.getName();
+	}
 
-	public Long getItemId() {
+	public String getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(Long itemId) {
+	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
 
-	public Long getListId() {
+	public String getListId() {
 		return listId;
 	}
 
-	public void setListId(Long listId) {
+	public void setListId(String listId) {
 		this.listId = listId;
 	}
 
-	public Long getDepartmentId() {
+	public String getDepartmentId() {
 		return departmentId;
 	}
 
-	public void setDepartmentId(Long departmentId) {
+	public void setDepartmentId(String departmentId) {
 		this.departmentId = departmentId;
 	}
 
