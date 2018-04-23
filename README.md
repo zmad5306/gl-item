@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # gl-item
 Grocery list, item service
 
